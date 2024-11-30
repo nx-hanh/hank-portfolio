@@ -4,15 +4,15 @@ import { PropsWithChildren } from 'react';
 import { LanguageProvider } from '@inlang/paraglide-next';
 import type { Metadata } from 'next';
 
-import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/navbar/navbar';
 import { ThemeProvider } from '@/components/theme-provider';
-import { ThemeSwitcher } from '@/components/theme-switcher';
 import { Toaster } from '@/components/ui/toaster';
 import { siteConfig } from '@/lib/constant';
 import { fonts } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 import { languageTag } from '@/paraglide/runtime.js';
+import AppSidebar from '@/components/sidebar/AppSidebar';
+import { SidebarProvider } from '@/components/ui/sidebar';
 
 export const generateMetadata = (): Metadata => ({
   metadataBase: new URL(siteConfig.url()),
@@ -52,12 +52,17 @@ const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <LanguageProvider>
       <html lang={languageTag()} suppressHydrationWarning>
-        <body className={cn('min-h-screen font-sans', fonts)}>
+        <body
+          className={cn('min-h-screen font-sans', fonts)}
+          suppressHydrationWarning
+        >
           <ThemeProvider attribute="class">
             <Navbar />
-            {children}
-            <ThemeSwitcher className="absolute bottom-5 right-5 z-10" />
-            <Footer />
+            <SidebarProvider>
+              <AppSidebar />
+              <main>{children}</main>
+            </SidebarProvider>
+
             <Toaster />
           </ThemeProvider>
         </body>
