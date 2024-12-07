@@ -1,22 +1,17 @@
-import { Calendar, Home, Inbox, Search, Settings } from 'lucide-react';
+import { Fragment } from 'react';
 
+import { CustomTrigger } from '@/components/sidebar/CustomTrigger';
+import LogoText from '@/components/sidebar/LogoText';
+import SidebarLinkMenu from '@/components/sidebar/SidebarLinkMenu';
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { CustomTrigger } from '@/components/sidebar/CustomTrigger';
-import LogoText from '@/components/sidebar/LogoText';
-import { Link } from '@/lib/i18n';
-import { Fragment } from 'react';
-import { cn } from '@/lib/utils';
 import { getData } from '@/lib/gist';
-import SidebarLinkItem from '@/components/sidebar/SidebarLinkItem';
-import SidebarLinkMenu from '@/components/sidebar/SidebarLinkMenu';
+import { Link } from '@/lib/i18n';
+import { cn } from '@/lib/utils';
 
 // Menu items.
 const navItems = [
@@ -63,7 +58,7 @@ async function AppSidebar() {
     : defaultLinks;
 
   return (
-    <Sidebar collapsible="icon" className="py-10 px-6">
+    <Sidebar collapsible="icon" className="px-6 py-10">
       <SidebarHeader>
         <LogoText />
       </SidebarHeader>
@@ -77,7 +72,7 @@ async function AppSidebar() {
               <span
                 className={cn(
                   'opacity-60',
-                  'hover:opacity-100 hover:bg-clip-text hover:text-transparent hover:bg-gradient-to-r hover:from-[#93faba] hover:via-[#8ceed6] hover:to-[#82e0f980]'
+                  'hover:bg-gradient-to-r hover:from-[#93faba] hover:via-[#8ceed6] hover:to-[#82e0f980] hover:bg-clip-text hover:text-transparent hover:opacity-100'
                 )}
               >
                 {link.title}

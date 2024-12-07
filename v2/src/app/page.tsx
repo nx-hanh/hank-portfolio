@@ -1,37 +1,61 @@
-import { HeroForm } from '@/components/form';
-import { Icons } from '@/components/icons';
-import { Button } from '@/components/ui/button';
-import * as m from '@/paraglide/messages';
+'use client';
+import { useState } from 'react';
+import { MinusIcon } from 'lucide-react';
 
-const Home = () => {
-  return (
-    <section className="container mt-10 flex flex-col items-center gap-3 text-center md:absolute md:left-1/2 md:top-1/2 md:mt-0 md:-translate-x-1/2 md:-translate-y-1/2">
-      <h1 className="mb-1 font-mono text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
-        {m.nextjs_starter_template_headline()}
-      </h1>
-      <p className="text-muted-foreground max-w-2xl">
-        {m.nextjs_starter_template_description()}
+import BehindMask from '@/components/mask/BehindMask';
+import { Link } from '@/lib/i18n';
+import { cn } from '@/lib/utils';
+
+export default function Home() {
+  const [disableMask, setDisableMask] = useState<boolean>(false);
+  const behindData = (
+    <div className="flex max-w-[400px] cursor-default flex-col gap-y-2 text-lg">
+      <h1 className="text-6xl font-bold">Hi there!</h1>
+      <p>
+        <MinusIcon className="inline-block" /> As a freelance developer
+        <span className="font-semibold text-blue-500"> now </span>, I specialize
+        in creating dynamic and engaging web solutions, combining technical
+        expertise with a creative approach to deliver exceptional results.
       </p>
-      <div className="mt-1">
-        <HeroForm />
-      </div>
-      <div className="mt-2 flex gap-4">
-        <Button asChild>
-          <a
-            href="https://github.com/Skolaczk/next-starter/blob/main/README.md#getting-started"
-            target="_blank"
-          >
-            {m.get_started()}
-          </a>
-        </Button>
-        <Button variant="outline" asChild>
-          <a href="https://github.com/Skolaczk/next-starter" target="_blank">
-            <Icons.github className="mr-2 size-4" /> {m.github()}
-          </a>
-        </Button>
-      </div>
-    </section>
+    </div>
   );
-};
-
-export default Home;
+  return (
+    <main className="relative size-full min-h-svh">
+      <BehindMask data={behindData} disable={disableMask} />
+      <section className="flex size-full min-h-svh flex-col items-center justify-center rounded-md p-8">
+        <div className="flex max-w-[400px] flex-col gap-y-2 text-lg">
+          <h1 className="text-6xl font-bold">Hi there!</h1>
+          <p>
+            <MinusIcon className="inline-block" /> {"I'm a passionate "}
+            <span className="font-semibold text-blue-500">
+              software engineer
+            </span>
+            , dedicated to building impactful applications and pushing the
+            boundaries of technology with creativity and precision.
+          </p>
+          <div className="z-50 flex w-full justify-end">
+            <Link
+              href="/projects"
+              className="hover:scale-125"
+              onMouseEnter={() => setDisableMask(true)}
+              onMouseLeave={() => setDisableMask(false)}
+            >
+              <span
+                className={cn(
+                  'relative inline font-medium italic',
+                  "after:absolute after:-bottom-1 after:left-0 after:-z-10 after:h-[2px] after:w-0 after:content-['']",
+                  'after:bg-gradient-to-r after:from-[#93faba] after:via-[#8ceed6] after:to-[#82e0f980]',
+                  'after:transition-[width,left] after:duration-500 after:ease-out',
+                  'hover:after:w-full focus:after:w-full active:after:w-full',
+                  'hover:bg-gradient-to-r hover:from-[#93faba] hover:via-[#8ceed6] hover:to-[#82e0f980] hover:bg-clip-text hover:text-transparent'
+                )}
+              >
+                Take a look !
+              </span>
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
+  );
+}

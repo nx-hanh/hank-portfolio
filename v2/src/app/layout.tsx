@@ -5,14 +5,14 @@ import { LanguageProvider } from '@inlang/paraglide-next';
 import type { Metadata } from 'next';
 
 import { Navbar } from '@/components/navbar/navbar';
+import AppSidebar from '@/components/sidebar/AppSidebar';
 import { ThemeProvider } from '@/components/theme-provider';
+import { SidebarProvider } from '@/components/ui/sidebar';
 import { Toaster } from '@/components/ui/toaster';
 import { siteConfig } from '@/lib/constant';
 import { fonts } from '@/lib/fonts';
 import { cn } from '@/lib/utils';
 import { languageTag } from '@/paraglide/runtime.js';
-import AppSidebar from '@/components/sidebar/AppSidebar';
-import { SidebarProvider } from '@/components/ui/sidebar';
 
 export const generateMetadata = (): Metadata => ({
   metadataBase: new URL(siteConfig.url()),
@@ -60,7 +60,7 @@ const RootLayout = ({ children }: PropsWithChildren) => {
             <Navbar />
             <SidebarProvider>
               <AppSidebar />
-              <main>{children}</main>
+              <>{children}</>
             </SidebarProvider>
 
             <Toaster />
