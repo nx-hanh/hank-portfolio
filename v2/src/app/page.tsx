@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { MinusIcon } from 'lucide-react';
+import { ChevronRightIcon, MinusIcon } from 'lucide-react';
 
 import BehindMask from '@/components/mask/BehindMask';
 import { Link } from '@/lib/i18n';
@@ -36,7 +36,7 @@ export default function Home() {
           <div className="z-50 flex w-full justify-end">
             <Link
               href="/projects"
-              className="hover:scale-125"
+              className="hover:scale-110"
               onMouseEnter={() => setDisableMask(true)}
               onMouseLeave={() => setDisableMask(false)}
             >
@@ -50,8 +50,9 @@ export default function Home() {
                   'hover:bg-gradient-to-r hover:from-[#93faba] hover:via-[#8ceed6] hover:to-[#82e0f980] hover:bg-clip-text hover:text-transparent'
                 )}
               >
-                Take a look !
+                Take a look
               </span>
+              <ChevronRightIcon className="inline-block" />
             </Link>
           </div>
         </div>
