@@ -1,0 +1,27 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "v1/**/*",
+      "use": "@vercel/next"
+    },
+    {
+      "src": "v2/**/*",
+      "use": "@vercel/next"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/v1/(.*)",
+      "dest": "/v1/$1"
+    },
+    {
+      "src": "/v2/(.*)",
+      "dest": "/v2/$1"
+    },
+    {
+      "src": "/",
+      "dest": "/${version}"  
+    }
+  ]
+}

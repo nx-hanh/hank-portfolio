@@ -1,0 +1,42 @@
+name: Deploy to Vercel
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install Vercel CLI
+        run: npm install -g vercel
+
+      - name: Read default version from vercel.json
+        id: read_version
+        run: |
+          DEFAULT_VERSION=$(jq -r '.routes[] | select(.src == "/") | .dest' vercel.json | sed 's/\///')
+          echo "::set-output name=version::$DEFAULT_VERSION"
+
+      - name: Deploy to Vercel
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: |
+          VERSION_FOLDER="${{ steps.read_version.outputs.version }}"
+          if [ -d "$VERSION_FOLDER" ]; then
+            cd "$VERSION_FOLDER"
+            vercel --prod
+          else
+            echo "Version folder $VERSION_FOLDER does not exist."
+            exit 1
+          fi
