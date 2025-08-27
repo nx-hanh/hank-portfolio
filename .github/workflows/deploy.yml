@@ -24,9 +24,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          npm install  # Install root dependencies (if any)
-          cd v1 && npm install  # Install v1 dependencies
-          cd ../v2 && npm install  # Install v2 dependencies
+          cd v1 && npm install
+          cd ../v2 && npm install
 
       - name: Install Vercel CLI
         run: npm install -g vercel
