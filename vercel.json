@@ -3,11 +3,13 @@
   "builds": [
     {
       "src": "v1/**/*",
-      "use": "@vercel/next"
+      "use": "@vercel/next",
+      "config": { "distDir": "v1/.next" }
     },
     {
       "src": "v2/**/*",
-      "use": "@vercel/next"
+      "use": "@vercel/next",
+      "config": { "distDir": "v2/.next" }
     }
   ],
   "routes": [
@@ -20,8 +22,8 @@
       "dest": "/v2/$1"
     },
     {
-      "src": "/",
-      "dest": "/${version}"  
+      "src": "/(.*)",
+      "dest": "/v2/$1"
     }
   ]
 }

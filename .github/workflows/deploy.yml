@@ -5,6 +5,9 @@ on:
     types:
       - opened
       - synchronize
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
@@ -12,31 +15,25 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: "18"
+
+      - name: Install dependencies
+        run: |
+          npm install  # Install root dependencies (if any)
+          cd v1 && npm install  # Install v1 dependencies
+          cd ../v2 && npm install  # Install v2 dependencies
 
       - name: Install Vercel CLI
         run: npm install -g vercel
 
-      - name: Read default version from vercel.json
-        id: read_version
-        run: |
-          DEFAULT_VERSION=$(jq -r '.routes[] | select(.src == "/") | .dest' vercel.json | sed 's/\///')
-          echo "::set-output name=version::$DEFAULT_VERSION"
-
       - name: Deploy to Vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: |
-          VERSION_FOLDER="${{ steps.read_version.outputs.version }}"
-          if [ -d "$VERSION_FOLDER" ]; then
-            cd "$VERSION_FOLDER"
-            vercel --prod
-          else
-            echo "Version folder $VERSION_FOLDER does not exist."
-            exit 1
-          fi
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+        run: vercel --prod
