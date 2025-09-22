@@ -4,10 +4,10 @@ import { PropsWithChildren } from 'react';
 import { LanguageProvider } from '@inlang/paraglide-next';
 import type { Metadata } from 'next';
 
-import { Footer } from '@/components/footer';
 import { Navbar } from '@/components/navbar/navbar';
+import AppSidebar from '@/components/sidebar/AppSidebar';
 import { ThemeProvider } from '@/components/theme-provider';
-import { ThemeSwitcher } from '@/components/theme-switcher';
+import { SidebarProvider } from '@/components/ui/sidebar';
 import { Toaster } from '@/components/ui/toaster';
 import { siteConfig } from '@/lib/constant';
 import { fonts } from '@/lib/fonts';
@@ -52,12 +52,17 @@ const RootLayout = ({ children }: PropsWithChildren) => {
   return (
     <LanguageProvider>
       <html lang={languageTag()} suppressHydrationWarning>
-        <body className={cn('min-h-screen font-sans', fonts)}>
+        <body
+          className={cn('min-h-screen font-sans', fonts)}
+          suppressHydrationWarning
+        >
           <ThemeProvider attribute="class">
             <Navbar />
-            {children}
-            <ThemeSwitcher className="absolute bottom-5 right-5 z-10" />
-            <Footer />
+            <SidebarProvider>
+              <AppSidebar />
+              <>{children}</>
+            </SidebarProvider>
+
             <Toaster />
           </ThemeProvider>
         </body>

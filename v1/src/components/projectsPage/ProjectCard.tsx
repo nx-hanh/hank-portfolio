@@ -46,7 +46,7 @@ const ProjectCard: FC<ProjectCardProps> = ({ project }) => {
           />
           <ActionButton
             label="Demo"
-            href={project.link.deploy}
+            href={project.link.deploy || "#"}
             icon={<ScreenShareIcon size={24} />}
             disabled={project.link.deploy === ""}
           />

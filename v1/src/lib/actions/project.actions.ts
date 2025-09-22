@@ -9,7 +9,7 @@ export const getProjects = async () => {
     const client = await clientPromise;
     const db = client.db(DATABASE);
     const projects = await db.collection(COLLECTION).find({}).toArray();
-    return projects as Project[];
+    return projects as unknown as Project[];
   } catch (error) {
     console.error(error);
     return [] as Project[];
@@ -23,7 +23,7 @@ export const getProject = async (id: string) => {
     const project = await db
       .collection(COLLECTION)
       .findOne({ _id: new ObjectId(id) });
-    return project as Project;
+    return project as unknown as Project;
   } catch (error) {
     console.error(error);
     return {} as Project;
@@ -34,7 +34,11 @@ export const createProject = async (project: Project) => {
   try {
     const client = await clientPromise;
     const db = client.db(DATABASE);
-    const result = await db.collection(COLLECTION).insertOne(project);
+    const projectToInsert = {
+      ...project,
+      _id: project._id ? new ObjectId(project._id) : undefined,
+    };
+    const result = await db.collection(COLLECTION).insertOne(projectToInsert);
     return result.insertedId;
   } catch (error) {
     console.error(error);
@@ -50,8 +54,12 @@ export const createProjects = async (projects: Project[]) => {
       (project) =>
         !projectsDb.find((projectDb) => projectDb.name === project.name)
     );
-    console.log(projectsNotInDb);
-    const result = await db.collection(COLLECTION).insertMany(projectsNotInDb);
+
+    const projectsToInsert = projectsNotInDb.map((project) => ({
+      ...project,
+      _id: project._id ? new ObjectId(project._id) : undefined,
+    }));
+    const result = await db.collection(COLLECTION).insertMany(projectsToInsert);
     return result.insertedIds;
   } catch (error) {
     console.error(error);

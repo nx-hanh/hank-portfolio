@@ -1,0 +1,21 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "v1/package.json",
+      "use": "@vercel/next",
+      "config": { "distDir": ".next" }
+    },
+    {
+      "src": "v2/package.json",
+      "use": "@vercel/next",
+      "config": { "distDir": ".next" }
+    }
+  ],
+  "rewrites": [
+    {
+      "source": "/v1/:path*",
+      "destination": "https://nx-hanh-old.vercel.app/:path*"
+    }
+  ]
+}
