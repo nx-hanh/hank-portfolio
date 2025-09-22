@@ -1,3 +1,5 @@
+const isProd = process.env.NODE_ENV === "production";
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: ["three"],
@@ -23,6 +25,8 @@ const nextConfig = {
       },
     ],
   },
+  basePath: isProd ? "/v1" : "",
+  assetPrefix: isProd ? "/v1/" : "",
 };
 
 export default nextConfig;
