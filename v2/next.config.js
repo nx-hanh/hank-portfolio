@@ -1,6 +1,4 @@
 const { paraglide } = require('@inlang/paraglide-next/plugin');
-const isProd = process.env.NODE_ENV === 'production';
-
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
@@ -11,8 +9,6 @@ const nextConfig = {
       },
     ],
   },
-  basePath: isProd ? '/v2' : '',
-  assetPrefix: isProd ? '/v2/' : '',
 };
 
 module.exports = paraglide({

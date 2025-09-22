@@ -12,26 +12,10 @@
       "config": { "distDir": ".next" }
     }
   ],
-  "routes": [
+  "rewrites": [
     {
-      "src": "/v1/static/(.*)",
-      "dest": "/v1/static/$1"
-    },
-    {
-      "src": "/v1/(.*)",
-      "dest": "/v1/$1"
-    },
-    {
-      "src": "/v2/static/(.*)",
-      "dest": "/v2/static/$1"
-    },
-    {
-      "src": "/v2/(.*)",
-      "dest": "/v2/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/v2/$1"
+      "source": "/v1/:path*",
+      "destination": "https://nx-hanh-old.vercel.app/:path*"
     }
   ]
 }
