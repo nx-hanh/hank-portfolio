@@ -82,19 +82,19 @@ const Link = ({ links }: { links: Project["link"] }) => {
       />
       <ActionButton
         label="Demo"
-        href={links.deploy}
+        href={links.deploy || "#"}
         disabled={links.deploy === ""}
         icon={<ScreenShareIcon size={16} />}
       />
       <ActionButton
         label="UI Design"
-        href={links.design}
+        href={links.design || "#"}
         disabled={links.design === ""}
         icon={<ComponentIcon size={16} />}
       />
       <ActionButton
         label="Documentation"
-        href={links.docs}
+        href={links.docs || "#"}
         disabled={links.docs === ""}
         icon={<FileSearchIcon size={16} />}
       />
