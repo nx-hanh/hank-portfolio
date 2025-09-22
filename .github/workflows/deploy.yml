@@ -36,4 +36,5 @@ jobs:
           MONGODB_URI: ${{ secrets.MONGODB_URI }}
           USER_INFO_GIST_ID: ${{ secrets.USER_INFO_GIST_ID }}
           USER_INFO_GIST_FILENAME: ${{ secrets.USER_INFO_GIST_FILENAME }}
-        run: vercel --prod --yes --token $VERCEL_TOKEN --build-env MONGODB_URI=$MONGODB_URI --build-env USER_INFO_GIST_ID=$USER_INFO_GIST_ID --build-env USER_INFO_GIST_FILENAME=$USER_INFO_GIST_FILENAME
+          APP_URL: ${{ vars.APP_URL }}
+        run: vercel --prod --yes --token $VERCEL_TOKEN --build-env MONGODB_URI=$MONGODB_URI --build-env USER_INFO_GIST_ID=$USER_INFO_GIST_ID --build-env USER_INFO_GIST_FILENAME=$USER_INFO_GIST_FILENAME --build-env APP_URL=$APP_URL
