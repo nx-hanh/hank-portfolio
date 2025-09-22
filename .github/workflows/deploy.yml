@@ -33,4 +33,5 @@ jobs:
       - name: Deploy to Vercel
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
-        run: vercel --prod --confirm --token $VERCEL_TOKEN
+          MONGODB_URI: ${{ secrets.MONGODB_URI }}
+        run: vercel --prod --yes --token $VERCEL_TOKEN --build-env MONGODB_URI=$MONGODB_URI
